@@ -1,0 +1,171 @@
+{% extends "management/principalReceptionist/base_principal_receptionist.html" %} 
+{% load static %} 
+
+{% block body %}
+
+<section class="content profile-page">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Patient Profile</h2>
+            <small class="text-muted">Welcome to Polyclinic application</small>
+        </div>        
+        <div class="row clearfix">
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class=" card patient-profile">
+                    {% if patient.profile %}
+                    <img style="height: 120px; width: 150px; border-radius: 7px; float: left;" src="{{patient.profile.url}}" class="img-fluid" alt="">   
+                    {% else %}
+                    <img src="http://via.placeholder.com/130x130" class="img-fluid" alt="" style="height: 120px; width: 150px; border-radius: 7px; float: left;">   
+                    {% endif %}           
+                </div>
+                <div class="card">
+                    <div class="header">
+                        <h2>About Patient</h2>
+                    </div>
+                    <div class="body">
+                        <strong>Name</strong>
+                        <p>{{patient.first_name}} {{patient.last_name}}</p>
+                        <strong>date of birth</strong>
+                        <p>{{patient.date_of_birth}}</p>
+                        <hr>
+                        <p>
+                            </p><strong>Marital Status</strong>:
+                            {%if patient.marital_status%}
+                                <strong>Married</strong>
+                            {%else%}
+                                <strong>Single</strong>
+                            {%endif%}
+                        </p>
+                        <strong>Profession</strong>
+                        <p>{{patient.profession}}</p>
+                        <hr>
+                        <strong>Phone</strong>
+                        <p>{{patient.phone}}</p>
+                        <strong>Emergency Phone</strong>
+                        <p>{{patient.emergency_phone}}</p>
+                        <hr>
+                        <strong>Email ID</strong>
+                        <p>{{patient.email}}</p>
+                        <hr>
+                        <strong>Address</strong>
+                        <address>{{patient.location}}</address>
+                        <hr>
+                        <strong>Creation date</strong>
+                        <address>{{patient.date_creation}}</address>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="body"> 
+                        <!-- Nav tabs -->
+                            <form method="post" action="{% url 'management:patients_profile' pk=pk %}">
+                                {% csrf_token %}
+                                <label for="profile">Select patient photo</label>
+                                <input type="file" id="profile" name="profile" accept=".jpg, .jpeg, .png">
+                                <br/><br/>
+                                <div class="row clearfix">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               <input type="text" name="first_name" class="form-control" value={{patient.first_name}} required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="last_name" class="form-control" value={{patient.last_name}} required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                date of birth<input type="date" name="date_of_birth" class="datepicker form-control" value="date_of_birth" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group drop-custum">
+                                            <select name="gender" class="form-control show-tick" required>
+                                                <option value="">-- Gender --</option>
+                                                <option value="Man">Man</option>
+                                                <option value="Woman">Woman</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                            <input type="text" name="phone" class="form-control" value={{patient.phone}} required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="emergency_phone" class="form-control" value={{patient.emergency_phone}} required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="email" class="form-control" value={{patient.email}} required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group drop-custum">
+                                            <select name="marital_status" class="form-control show-tick" required>
+                                                <option value="">-- Marital Status --</option>
+                                                <option value="False">Single</option>
+                                                <option value="True">Married</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--div class="col-sm-2">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="checkbox" class="form-control" name="maritalStatus" id="maritalStatus" value="True">
+                                                <label for="maritalStatus">marital status</label>
+                                                </input>
+                                            </div>
+                                        </div>
+                                    </div-->
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="location" class="form-control" value={{patient.location}} required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="profession" class="form-control" value={{patient.profession}} required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="btn btn-raised g-bg-cyan">Apply</button>
+                                        <button type="submit" class="btn btn-raised">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            
+                            
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
