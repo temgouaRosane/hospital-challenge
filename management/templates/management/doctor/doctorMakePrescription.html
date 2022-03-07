@@ -1,0 +1,140 @@
+{% extends "management/doctor/base_doctor.html" %} 
+{% load static %} 
+
+{% block body %}
+
+<section class="content profile-page" style="min-height: 700px;">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>RECEIPT</h2>
+        </div>        
+        <div class="row clearfix">
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2><strong>ABOUT PATIENT</strong></h2>
+                        </div>
+                        <div class="body">
+                            <strong>Name</strong>
+                            <p style="text-transform: uppercase;">{{patient.first_name}} {{patient.last_name}}</p>
+                            <hr>
+                            <strong>date of birth</strong>
+                            <p>{{patient.date_of_birth}}</p>
+                            <hr>
+                            <strong>Gender</strong>
+                            <p>{{patient.gender}}</p>
+                            <hr>
+                            <strong>Marital Status</strong>
+                            <p>
+                                {%if patient.marital_status%}
+                                    Married
+                                {%else%}
+                                    Single
+                                {%endif%}
+                            </p>
+                            <hr>
+                            <strong>Profession</strong>
+                            <p>{{patient.profession}}</p>
+                            <hr>
+                            <strong>Phone</strong>
+                            <p>{{patient.phone}}</p>
+                            <hr>
+                            <strong>Emergency Phone</strong>
+                            <p>{{patient.emergency_phone}}</p>
+                            <hr>
+                            <strong>Email ID</strong>
+                            <p>{{patient.email}}</p>
+                            <hr>
+                            <strong>Address</strong>
+                            <address>{{patient.location}}</address>
+                        </div>
+                    </div>
+                </div>
+            
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="body"> 
+                        <!-- Nav tabs -->
+                        <h3 style="text-align: center;">Prescription</h3>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <form method="post" action="{% url 'management:doctorMakePrescriptions' pk=pk %}">
+                                {% csrf_token %}
+                                
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                Symptoms:
+                                                <textarea name="symptoms" class="form-control" class="textarea_ordonnance" required>
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                Drug prescription:
+                                                <textarea name="drugPrescription" class="form-control" class="textarea_ordonnance">
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                Examinations:
+                                                <textarea name="examinations" class="form-control" class="textarea_ordonnance">
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                Recommendations:
+                                                <textarea name="recommendations" class="form-control" class="textarea_ordonnance">
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                   
+                                    
+                                    
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="btn btn-raised g-bg-cyan">save</button>
+                                        <span style="color: rgb(38, 166, 240);">{{message}}</span>
+                                    </div>
+                                </div>
+                            </form>
+
+                            
+                        </ul>
+                        
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="body"> 
+                        <h3 style="text-align: center;">Send to another department</h3>
+                        <div class="col-sm-12">
+                            <div class="form-group drop-custum">
+                                <select name="doctor" class="form-control show-tick" required>
+                                    <option value="">-- Departments --</option>
+                                    {%for department in departments%}
+                                    <option value={{department.pk}}>{{department.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-raised g-bg-cyan">send</button>
+                                <span style="color: rgb(38, 166, 240);">{{message}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

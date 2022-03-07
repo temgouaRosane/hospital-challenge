@@ -1,0 +1,138 @@
+{% extends "management/principalReceptionist/base_principal_receptionist.html" %} 
+{% load static %} 
+
+{% block body %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Add Patient</h2>
+            <small class="text-muted">Welcome to Polyclinic application</small>
+        </div>
+        <div class="row clearfix">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<div class="card">
+					<div class="header">
+						<h2>Basic Information <small>Description text here...</small> </h2>
+						<ul class="header-dropdown m-r--5">
+							<li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a>
+								<ul class="dropdown-menu pull-right">
+									<li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+									<li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+									<li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<div class="body">
+                    <form method="post" action="{% url 'management:department_add_patients' %}">
+                        {% csrf_token %}
+                        <div class="col-sm-6">
+                            <div class="form-group drop-custum">
+                                <select name="department" class="form-control show-tick" required>
+                                    <option value="">-- department --</option>
+                                    {%for department in departments%}
+                                        
+                                        <option value={{department.pk}}>{{department.name}}</option>
+                                        
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                       Nom<input type="text" name="first_name" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        Prénom<input type="text" name="last_name" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                            
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        Date de naissance<input type="date"  name="date_of_birth" max="2022-02-02" min="1900-02-02" class="datepicker form-control" placeholder="Date de naissance">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group drop-custum">
+                                    Genre
+                                    <select name="gender" class="form-control show-tick">
+                                        <option value="">-- Genre --</option>
+                                        <option value="Homme">Homme</option>
+                                        <option value="Femme">Femme</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        Téléphone<input type="text" name="phone" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        Téléphone d'un proche<input type="text" name="ParentPhone" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        E-mail<input type="text" name="email" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group drop-custum">
+                                    Statut Marital
+                                    <select name="marital_status" class="form-control show-tick" required>
+                                        <option value="">-- Statut Marital --</option>
+                                        <option value="SINGLE">Single</option>
+                                        <option value="MARRIED">Married</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        Résidence<input type="text" name="location" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        Profession<input type="text" name="profession" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-raised g-bg-cyan">Soumettre</button> {{confirmation}}
+                                
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+				</div>
+			</div>
+		</div>
+        
+    </div>
+</section>
+{% endblock %}
